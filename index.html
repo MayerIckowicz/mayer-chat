@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="./js/index.js" type="module"></script>
+    <title>MayerChat</title>
+  </head>
+  <body>
+    <div class="auth">
+      <h1 class="auth__header">
+        Welcome To the Mayer Chat room, Plase log in or create new account to
+        continue
+      </h1>
+      <div class="auth__createaccount">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="email"
+          class="create__account--email"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="password"
+          class="create__account--password"
+        />
+      </div>
+      <button class="auth__button auth__button--createaccount">
+        Create Account
+      </button>
+      <span>or</span>
+      <button class="auth__button--login auth__button">Log In</button>
+      <p class="reset__password">Forgot Password?</p>
+    </div>
+    <div class="app hidden">
+      <div class="topbar">
+        <nav>
+          <button class="generalBtn topbar__btn">General Talk</button>
+          <button class="sportsBtn topbar__btn">Sports</button>
+          <button class="programmingBtn topbar__btn">Programming</button>
+        </nav>
+        <button class="logout topbar__btn">LogOut</button>
+      </div>
+      <div class="chatroom__name">
+        <h1 class="chatroom__name--header">General Talk</h1>
+      </div>
+      <div class="chat">
+        <div class="chat__messages">
+          <p class="chat__message--item chat__messages--user">test</p>
+          <p class="chat__message--item chat__messages--out">test</p>
+          <p class="chat__message--item chat__messages--out">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
+            laboriosam consequatur inventore nam? Pariatur voluptatibus quae
+            ratione asperiores natus! Debitis sapiente quibusdam harum. Adipisci
+            ut molestiae praesentium eos beatae ipsam?
+          </p>
+          <p class="chat__message--item chat__messages--out">other test</p>
+          <p class="chat__message--item chat__messages--user">other</p>
+          <p class="chat__message--item chat__messages--user">kjgftyc</p>
+          <p class="chat__message--item chat__messages--out">ejvu</p>
+          <p class="chat__message--item chat__messages--user">wjher4yu4htb4</p>
+          <p class="chat__message--item chat__messages--out">ewgeyugwy</p>
+          <p class="chat__message--item chat__messages--user">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam
+            accusamus sequi necessitatibus tempora, voluptate aut. Quae
+            repudiandae voluptate modi! Iure quasi id quisquam quis laboriosam
+            ipsum delectus nihil, iusto in.
+          </p>
+        </div>
+
+        <div class="chat__sendmessage">
+          <input
+            type="text"
+            class="chat__sendmessage--inp"
+            placeholder="Type Your Message"
+          />
+          <button class="chat__sendmessage--btn">Send</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
