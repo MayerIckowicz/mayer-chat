@@ -6,6 +6,7 @@ import createNewAccount, { refreshToken } from "./userAuth.js";
 getUserTokenFromLocalStorage;
 import initiateChatRoom, {
   fetchDatabaseMessagesWhenLoad,
+  fetchDatabaseMessages,
 } from "./initChatRoom.js";
 import { sendMessageToDatabase } from "./databaseReq.js";
 
@@ -16,6 +17,7 @@ const sendBtn = document.querySelector(".chat__sendmessage--btn");
 const generalTalkBtn = document.querySelector(".generalBtn");
 const sportsRoomBtn = document.querySelector(".sportsBtn");
 const programmingRoomBtn = document.querySelector(".programmingBtn");
+const chatRoomNameH1 = document.querySelector(".chatroom__name--header");
 
 createAccBtn.addEventListener("click", () => {
   createNewAccount("signup");
@@ -38,6 +40,12 @@ programmingRoomBtn.addEventListener("click", () => {
   changeRoom("programming");
 });
 
+chatRoomNameH1.textContent = localStorage.getItem("room");
+
 refreshToken();
 fetchDatabaseMessagesWhenLoad();
 initiateChatRoom();
+
+setInterval(() => {
+  fetchDatabaseMessages();
+}, 10000);
