@@ -9,6 +9,8 @@ import {
 
 const emailInput = document.querySelector(".create__account--email");
 const passwordInput = document.querySelector(".create__account--password");
+const createAccBtn = document.querySelector(".auth__button--createaccount");
+const loginAncherTag = document.querySelector(".auth__alreadyAccount");
 
 const API_KEY = "AIzaSyCdyyWO_PjpxivDxgXbhUWi5SDT9nXkdWI";
 
@@ -17,6 +19,18 @@ const SIGNUP_EMAIL_ENDPOINT = `https://identitytoolkit.googleapis.com/v1/account
 const LOGIN_EMAIL_ENDPOINT = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 
 const EXCHANGETOKEN_ENDPOINT = `https://securetoken.googleapis.com/v1/token?key=${API_KEY}`;
+
+export const changeLoginPage = () => {
+  if (!createAccBtn.classList.contains("isOnLogin")) {
+    createAccBtn.textContent = "Log In";
+    loginAncherTag.textContent = "Still don't have an account, SignUp";
+    createAccBtn.classList.add("isOnLogin");
+  } else {
+    createAccBtn.textContent = "Create Account";
+    loginAncherTag.textContent = "Already Have an Account, SignIn";
+    createAccBtn.classList.remove("isOnLogin");
+  }
+};
 
 const checkEmailPassValid = () => {
   if (
@@ -46,9 +60,10 @@ const createNewAccount = async (arg) => {
 
   //check if is signin or signup
   let ENDPOINT = "";
-  arg === "signin"
-    ? (ENDPOINT = LOGIN_EMAIL_ENDPOINT)
-    : (ENDPOINT = SIGNUP_EMAIL_ENDPOINT);
+  // arg === "signin"
+  //   ? (ENDPOINT = LOGIN_EMAIL_ENDPOINT)
+  //   : (ENDPOINT = SIGNUP_EMAIL_ENDPOINT);
+  ENDPOINT = arg === "signin" ? LOGIN_EMAIL_ENDPOINT : SIGNUP_EMAIL_ENDPOINT;
 
   try {
     const response = await fetch(ENDPOINT, {

@@ -2,7 +2,7 @@ import getUserTokenFromLocalStorage, {
   logOutUser,
   changeRoom,
 } from "./loginDetails.js";
-import createNewAccount, { refreshToken } from "./userAuth.js";
+import createNewAccount, { refreshToken, changeLoginPage } from "./userAuth.js";
 getUserTokenFromLocalStorage;
 import initiateChatRoom, {
   fetchDatabaseMessagesWhenLoad,
@@ -11,23 +11,27 @@ import initiateChatRoom, {
 import { sendMessageToDatabase } from "./databaseReq.js";
 
 const createAccBtn = document.querySelector(".auth__button--createaccount");
-const loginBtn = document.querySelector(".auth__button--login");
 const logoutBtn = document.querySelector(".logout");
 const sendBtn = document.querySelector(".chat__sendmessage--btn");
 const generalTalkBtn = document.querySelector(".generalBtn");
 const sportsRoomBtn = document.querySelector(".sportsBtn");
 const programmingRoomBtn = document.querySelector(".programmingBtn");
 const chatRoomNameH1 = document.querySelector(".chatroom__name--header");
+const loginAncherTag = document.querySelector(".auth__alreadyAccount");
 
-createAccBtn.addEventListener("click", () => {
-  createNewAccount("signup");
+loginAncherTag.addEventListener("click", () => {
+  changeLoginPage();
 });
-loginBtn.addEventListener("click", () => {
-  createNewAccount("signin");
+
+createAccBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  createNewAccount(
+    createAccBtn.classList.contains("isOnLogin") ? "signin" : "signup"
+  );
 });
+
 logoutBtn.addEventListener("click", logOutUser);
 sendBtn.addEventListener("click", () => {
-  // sendMessageToDatabase("general_talk");
   sendMessageToDatabase();
 });
 generalTalkBtn.addEventListener("click", () => {

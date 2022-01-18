@@ -14,28 +14,33 @@
         Welcome To the Mayer Chat room, Plase log in or create new account to
         continue
       </h1>
-      <div class="auth__createaccount">
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="email"
-          class="create__account--email"
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="password"
-          class="create__account--password"
-        />
+      <div class="">
+        <form class="auth__createaccount">
+          <p class="auth__p auth__p-email">Email</p>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="test@gmail.com"
+            class="create__account--email"
+          />
+          <p class="auth__p auth__p-password">Password</p>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Type the password"
+            class="create__account--password"
+          />
+          <button class="auth__button auth__button--createaccount">
+            Create Account
+          </button>
+          <a href="#" class="auth__alreadyAccount"
+            >Already Have an Account, SignIn</a
+          >
+          <!-- <p class="reset__password">Forgot Password?</p> -->
+        </form>
       </div>
-      <button class="auth__button auth__button--createaccount">
-        Create Account
-      </button>
-      <span>or</span>
-      <button class="auth__button--login auth__button">Log In</button>
-      <p class="reset__password">Forgot Password?</p>
     </div>
     <div class="app hidden">
       <div class="topbar">
