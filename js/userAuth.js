@@ -107,7 +107,7 @@ export const refreshToken = async () => {
     // location.reload();
     console.log(error);
   }
-  // location.reload();
+  location.reload();
 };
 
 export default createNewAccount;
