@@ -3,9 +3,7 @@ import {
   setNewTokenFromExpiredOne,
 } from "./loginDetails.js";
 
-// import getMessagesDatabase from "./databaseReq.js";
-// import initiateChatRoom from "./initChatRoom.js";
-// import getUserTokenFromLocalStorage from "./loginDetails.js";
+import InvalidLoginError, { cleanErrorState } from "./loginErrorHandling.js";
 
 const emailInput = document.querySelector(".create__account--email");
 const passwordInput = document.querySelector(".create__account--password");
@@ -20,6 +18,8 @@ const LOGIN_EMAIL_ENDPOINT = `https://identitytoolkit.googleapis.com/v1/accounts
 
 const EXCHANGETOKEN_ENDPOINT = `https://securetoken.googleapis.com/v1/token?key=${API_KEY}`;
 
+let isInErrorState = false;
+
 export const changeLoginPage = () => {
   if (!createAccBtn.classList.contains("isOnLogin")) {
     createAccBtn.textContent = "Log In";
@@ -32,38 +32,17 @@ export const changeLoginPage = () => {
   }
 };
 
-const checkEmailPassValid = () => {
-  if (
-    emailInput.value.includes("@") &&
-    emailInput.value.length >= 5 &&
-    passwordInput.value.length >= 6
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 const accountCreatedHandler = () => {
   emailInput.value = passwordInput.value = "";
   alert("your account was created");
 };
 
 const createNewAccount = async (arg) => {
-  const isValid = checkEmailPassValid();
-  if (!isValid) {
-    alert(
-      "Invalid Password or email, please make sure your password have 6 or more characters"
-    );
-    return;
-  }
-
   //check if is signin or signup
   let ENDPOINT = "";
-  // arg === "signin"
-  //   ? (ENDPOINT = LOGIN_EMAIL_ENDPOINT)
-  //   : (ENDPOINT = SIGNUP_EMAIL_ENDPOINT);
+
   ENDPOINT = arg === "signin" ? LOGIN_EMAIL_ENDPOINT : SIGNUP_EMAIL_ENDPOINT;
+  isInErrorState && cleanErrorState();
 
   try {
     const response = await fetch(ENDPOINT, {
@@ -78,11 +57,10 @@ const createNewAccount = async (arg) => {
       },
     });
     if (!response.ok) {
-      console.log(response);
+      console.log(response.message);
       const data = await response.json();
-      alert(data.error.message);
       console.log(data.error.message);
-      throw new Error();
+      throw new Error(data.error.message);
     }
     arg === "signup" && accountCreatedHandler();
     const data = await response.json();
@@ -94,6 +72,9 @@ const createNewAccount = async (arg) => {
     // });
   } catch (error) {
     console.log(error);
+    const newError = new InvalidLoginError(error);
+    newError.displayError();
+    isInErrorState = true;
   }
 };
 
@@ -122,9 +103,11 @@ export const refreshToken = async () => {
     setNewTokenFromExpiredOne(data);
   } catch (error) {
     alert(error.message);
+    // alert("failed to fetch is comming from here(test purposes");
+    // location.reload();
     console.log(error);
   }
-  location.reload();
+  // location.reload();
 };
 
 export default createNewAccount;

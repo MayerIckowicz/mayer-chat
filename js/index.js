@@ -10,6 +10,8 @@ import initiateChatRoom, {
 } from "./initChatRoom.js";
 import { sendMessageToDatabase } from "./databaseReq.js";
 
+import { cleanErrorState } from "./loginErrorHandling.js";
+
 const createAccBtn = document.querySelector(".auth__button--createaccount");
 const logoutBtn = document.querySelector(".logout");
 const sendBtn = document.querySelector(".chat__sendmessage--btn");
@@ -20,6 +22,7 @@ const chatRoomNameH1 = document.querySelector(".chatroom__name--header");
 const loginAncherTag = document.querySelector(".auth__alreadyAccount");
 
 loginAncherTag.addEventListener("click", () => {
+  cleanErrorState();
   changeLoginPage();
 });
 
